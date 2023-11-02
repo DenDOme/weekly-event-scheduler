@@ -14,12 +14,23 @@ let allBlock = [
         username: 'Иванова Екатерина',
         max: 2,
     },
+    {
+        day: 'ПТ',
+        id: 2,
+        type: 'Pole Dance',
+        username: 'Иванова Екатерина',
+        max: 2,
+    },
 ]
+
+
 function chechWindowLenght(){
     if(windowWidth >= 910){
         showDays = 5;
     }
 }
+
+
 function createBlock(){
     let newEllone = document.createElement('div');
     let newElltwo = document.createElement('div');
@@ -35,24 +46,35 @@ function createBlock(){
     if(allBlock[0].max !== 8){
         newPfou.innerHTML = 'Свободно: '+allBlock[0].max+' из 8'
     }
+    else if (allBlock[0].max == 8){
+        newPfou.innerHTML = 'Свободных мест нету!';
+        newPfou.style.color = 'red';
+    }
     newElltwo.append(newPone)
     newElltwo.append(newPtwo)
     newElltwo.append(newPthr)
     newElltwo.append(newPfou)
-
+    
     newEllone.appendChild(newElltwo);
     return newEllone;
 }
+
+
+
 function getDayName(day,month,year, locale){   
     comp =  month+'/'+day+'/'+year;
     var date = new Date(comp);
     return date.toLocaleDateString(locale, { weekday: 'short' });        
 }
+
+
 function getMonthName(day,month,year, locale){   
     comp =  month+'/'+day+'/'+year;
     var date = new Date(comp);
     return date.toLocaleDateString(locale, { month: 'long' });        
 }
+
+
 let date = new Date()
 let dayone = String(date.getDate());
 let monthone = String(date.getMonth()+1);
@@ -68,11 +90,22 @@ for(let i = 0 ; i < 5 ; i++){
     dayone++
     dayone = String(dayone);
 }
+
+
 function loadDay(){
+    chechWindowLenght();
     let noew = timeDisp[0];
-    for(let i = 0 ; i < 5 ; i++){
-        let newEll = createBlock();
-        timeDisp[0].appendChild(newEll);
+    for(let i = 0 ; i < 11 ; i++){ 
+        for(let j = 0 ; j < showDays ; j++){
+            for(let b = 0 ; b < allBlock.length ; b++){
+                if(timeDisp[i].id == allBlock[b].id){
+                    console.log(allBlock[b].id);
+                    let newEll = createBlock();
+                    timeDisp[i].appendChild(newEll);
+                }
+            }
+        }
+        
     }
     if(timeSec[0].offsetHeight == 164){
         console.log(timeSec[0].offsetHeight);
